@@ -26,7 +26,7 @@ public abstract class ElementosABS {
         return valor;
     }
 
-    public void setValue(int valor) {
+    public void setValor(int valor) {
         this.valor = valor;
     }
 
