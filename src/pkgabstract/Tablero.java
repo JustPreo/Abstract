@@ -5,8 +5,9 @@ import javax.swing.*;
 
 public class Tablero extends JFrame {
 
-    JButton[][][] botones; // 3D: [subcuadro][fila][columna]
+    JButton[][][] botones; // [subcuadro][fila][columna]
     JButton[][] c1, c2, c3, c4, c5, c6, c7, c8, c9;
+    JButton b1,b2,b3,b4,b5,b6,b7,b8,b9;
     int contador;
 
     public Tablero() {
@@ -34,13 +35,13 @@ public class Tablero extends JFrame {
     }
 
     private void plantilla() {
-        setLayout(null); // Necesario para usar setBounds
-        setSize(500, 500);
+        setLayout(null);
+        setSize(700, 500);
         setTitle("A");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+        
     }
 
     private void generarCuadricula() {
@@ -55,14 +56,14 @@ public class Tablero extends JFrame {
                 for (int c = 0; c < 3; c++) {
                     JButton asiento = new JButton("" + (contador + 1));
                     asiento.setBounds(offsetX + (c * 50), offsetY + (r * 50), 50, 50);
-                    asiento.setBackground(Color.GREEN);
+                    asiento.setBackground(Color.white);
                     add(asiento);
                     subcuadro[r][c] = asiento;
                     contador++;
                 }
             }
 
-            // Actualiza posición de siguiente subcuadro
+            
             subIndex++;
             offsetX += 160;
             if (subIndex % 3 == 0) {
@@ -73,6 +74,6 @@ public class Tablero extends JFrame {
     }
 
     public static void main(String[] args) {
-        new Tablero();
+        new Tablero().setVisible(true);
     }
 }
