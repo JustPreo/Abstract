@@ -8,12 +8,12 @@ package pkgabstract;
  *
  * @author user
  */
-public class Celda extends ElementosABS {
+public class celda extends ElementosABS {
 
     private int r, c;
     private boolean unico;
 
-    public Celda(int r, int c, int valor, boolean unico) {
+    public celda(int r, int c, int valor, boolean unico) {
         super(valor, !unico);
         this.r = r;
         this.c = c;

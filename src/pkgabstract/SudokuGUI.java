@@ -1,4 +1,4 @@
-package sudoku;
+package pkgabstract;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,10 +8,10 @@ import java.awt.event.*;
 
 public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
 
-    private SudokuCell[][] celdas;
+    private celda[][] celdas;
     private JTextField[][] camposTexto;
-    private StandardSudokuValidator validador;
-    private SudokuGenerator generador;
+    private ValidacionesJuego validador;
+    private TableroSudoku generador;
     private int[][] tableroActual;
     private int[][] tableroOriginal;
 
@@ -20,12 +20,12 @@ public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
     public SudokuGUI() {
         super("Sudoku");
 
-        celdas = new SudokuCell[9][9];
+        celdas = new celda[9][9];
         camposTexto = new JTextField[9][9];
         tableroActual = new int[9][9];
-        generador = new SudokuGenerator();
+        generador = new TableroSudoku();
 
-        initializeUI();
+        initGui();
         iniciarJuego();
     }
 
@@ -100,11 +100,11 @@ public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 boolean esOriginal = tableroActual[i][j] != 0;
-                celdas[i][j] = new SudokuCell(i, j, tableroActual[i][j], esOriginal);
+                celdas[i][j] = new celda(i, j, tableroActual[i][j], esOriginal);
             }
         }
 
-        validador = new StandardSudokuValidator(tableroActual);
+        validador = new ValidacionesJuego(tableroActual);
         update();
     }
 
@@ -113,15 +113,15 @@ public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
         for (int fila = 0; fila < 9; fila++) {
             for (int col = 0; col < 9; col++) {
                 JTextField campo = camposTexto[fila][col];
-                SudokuCell celda = celdas[fila][col];
+                celda celd = celdas[fila][col];
 
-                if (celda.getValue() == 0) {
+                if (celd.getValor() == 0) {
                     campo.setText("");
                 } else {
-                    campo.setText(String.valueOf(celda.getValue()));
+                    campo.setText(String.valueOf(celd.getValor()));
                 }
 
-                if (celda.isOriginal()) {
+                if (celd.unico()) {
                     campo.setBackground(Color.LIGHT_GRAY);
                     campo.setEditable(false);
                     campo.setFont(new Font("Arial", Font.BOLD, 20));
@@ -131,7 +131,7 @@ public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
                     campo.setFont(new Font("Arial", Font.PLAIN, 20));
                 }
 
-                if (celda.getValue() != 0 && !validador.isValid(fila, col, celda.getValue())) {
+                if (celd.getValor() != 0 && !validador.verificar(fila, col, celd.getValor())) {
                     campo.setBackground(Color.PINK);
                 }
             }
@@ -154,7 +154,7 @@ public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
     private void verificarSolucion() {
         actualizarTablero();
 
-        if (validador.isGameComplete()) {
+        if (validador.partidaTerminada()) {
             JOptionPane.showMessageDialog(this, "Has completado el Sudoku correctamente.",
                     "VICTORIA", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -167,7 +167,7 @@ public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
         int[][] solucion = generador.getSolution();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                celdas[i][j].setValue(solucion[i][j]);
+                celdas[i][j].setValor(solucion[i][j]);
                 tableroActual[i][j] = solucion[i][j];
             }
         }
@@ -177,8 +177,8 @@ public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
     private void reiniciarJuego() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if (!celdas[i][j].isOriginal()) {
-                    celdas[i][j].reset();
+                if (!celdas[i][j].unico()) {
+                    celdas[i][j].resetear();
                     tableroActual[i][j] = 0;
                 }
             }
@@ -192,13 +192,13 @@ public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
                 String texto = camposTexto[i][j].getText().trim();
                 if (texto.isEmpty()) {
                     tableroActual[i][j] = 0;
-                    celdas[i][j].setValue(0);
+                    celdas[i][j].setValor(0);
                 } else {
                     try {
                         int valor = Integer.parseInt(texto);
                         if (valor >= 1 && valor <= 9) {
                             tableroActual[i][j] = valor;
-                            celdas[i][j].setValue(valor);
+                            celdas[i][j].setValor(valor);
                         }
                     } catch (NumberFormatException ex) {
                         // no hace nada si se ingresa una entrada invalida att: fer :D

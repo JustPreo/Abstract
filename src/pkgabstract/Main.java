@@ -1,4 +1,5 @@
-package sudoku;
+package pkgabstract;
+
 import javax.swing.*;
 
 /**

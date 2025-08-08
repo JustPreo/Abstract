@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package sudoku;
+package pkgabstract;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -20,7 +20,7 @@ abstract class JuegoGUI extends JFrame{
         super(title);
     }
     
-    protected void initializeUI() {
+    protected void initGui() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         
