@@ -106,7 +106,7 @@ public class TableroSudoku {
         for (int num = 1; num <= 9; num++) {
             if (verificarVacio(tableroRandom, i, j, num)) {
                 tableroRandom[i][j] = num;
-                if (fillRemaining(tableroRandom, i, j + 1)) {
+                if (llenadoDeCeldas(tableroRandom, i, j + 1)) {
                     return true;
                 }
                 tableroRandom[i][j] = 0;
