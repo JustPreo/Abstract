@@ -90,7 +90,7 @@ public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
     private void generarNuevoJuego() {
 
         int dificultad = 70;
-        tableroActual = generador.generatePuzzle(dificultad);
+        tableroActual = generador.crearTablero(dificultad);
 
         tableroOriginal = new int[9][9];
         for (int i = 0; i < 9; i++) {
