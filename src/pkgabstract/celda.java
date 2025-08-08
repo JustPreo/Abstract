@@ -9,6 +9,26 @@ package pkgabstract;
  * @author user
  */
 public class celda extends ElementosABS {
+    private int r,c;
+    private boolean unico;
     
+    public celda(int r , int c , int valor , boolean unico)
+    {
+    super(valor , !unico);
+    this. r = r;
+    this.c = c;
+    this.unico = unico;
+    
+    }
+    
+    public boolean valido() {
+        return valor >=
+        
+    }
+
+    
+    public void resetear() {
+    
+    }
     
 }
