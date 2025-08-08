@@ -15,7 +15,7 @@ public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
     private int[][] tableroActual;
     private int[][] tableroOriginal;
 
-    private JButton btnVerificar, btnMostrarSolucion, btnReiniciar;
+    private JButton btnVerificar, btnRegresar, btnReiniciar;
 
     public SudokuGUI() {
         super("Sudoku");
@@ -71,15 +71,15 @@ public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
         cPanel = new JPanel(new FlowLayout());
 
         btnVerificar = new JButton("Verificar");
-        btnMostrarSolucion = new JButton("Mostrar Solución");
         btnReiniciar = new JButton("Reiniciar");
+        btnRegresar = new JButton("Regresar");
 
         btnVerificar.addActionListener(this);
-        btnMostrarSolucion.addActionListener(this);
+        btnRegresar.addActionListener(this);
         btnReiniciar.addActionListener(this);
 
         cPanel.add(btnVerificar);
-        cPanel.add(btnMostrarSolucion);
+        cPanel.add(btnRegresar);
         cPanel.add(btnReiniciar);
     }
 
@@ -144,8 +144,8 @@ public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
 
         if (fuente == btnVerificar) {
             verificarSolucion();
-        } else if (fuente == btnMostrarSolucion) {
-            mostrarSolucion();
+        } else if (fuente == btnRegresar){
+            System.out.println("hi");
         } else if (fuente == btnReiniciar) {
             reiniciarJuego();
         }
@@ -161,17 +161,6 @@ public class SudokuGUI extends JuegoGUI implements ActionListener, KeyListener {
             JOptionPane.showMessageDialog(this, "El Sudoku no está completo o tiene errores.",
                     "ALERTA", JOptionPane.WARNING_MESSAGE);
         }
-    }
-
-    private void mostrarSolucion() {
-        int[][] solucion = generador.getSolution();
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                celdas[i][j].setValor(solucion[i][j]);
-                tableroActual[i][j] = solucion[i][j];
-            }
-        }
-        update();
     }
 
     private void reiniciarJuego() {
